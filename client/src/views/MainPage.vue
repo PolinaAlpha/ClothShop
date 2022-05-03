@@ -1,41 +1,41 @@
 <template lang="pug"> 
 div.MainFrame
-    div.DisplayStyle
+    div.DisplayStyle(@click="choicePage(0)")
         div    
             img(src="@/assets/vo.jpg").ImgStyle
         div.TextStyle
             span.SpanStile Верхняя одежда
-    div.DisplayStyle
+    div.DisplayStyle(@click="choicePage(1)")
         div    
             img(src="@/assets/ru.jpg").ImgStyle 
         div.TextStyle
             span.SpanStile Рубашки
-    div.DisplayStyle
+    div.DisplayStyle(@click="choicePage(2)")
         div    
             img(src="@/assets/dj.jpg").ImgStyle
         div.TextStyle
             span.SpanStile Джинсы
-    div.DisplayStyle
+    div.DisplayStyle(@click="choicePage(3)")
         div    
             img(src="@/assets/pl.jpg").ImgStyle
         div.TextStyle
             span.SpanStile Платья
-    div.DisplayStyle
+    div.DisplayStyle(@click="choicePage(4)")
         div    
             img(src="@/assets/fu.jpg").ImgStyle
         div.TextStyle
             span.SpanStile Футболки
-    div.DisplayStyle
+    div.DisplayStyle(@click="choicePage(5)")
         div    
             img(src="@/assets/sv.jpg").ImgStyle
         div.TextStyle
             span.SpanStile Свитшоты
-    div.DisplayStyle
+    div.DisplayStyle(@click="choicePage(6)")
         div    
             img(src="@/assets/ob.jpg").ImgStyle
         div.TextStyle
             span.SpanStile Обувь
-    div.DisplayStyle
+    div.DisplayStyle(@click="choicePage(7)")
         div    
             img(src="@/assets/ac.jpg").ImgStyle
         div.TextStyle
@@ -44,7 +44,29 @@ div.MainFrame
 
 <script>
 export default {
+    data(){
+        return{
 
+        }
+    },
+    methods: {
+        choicePage(Num){
+           this.$store.commit("choice/choiceEdit", Num);
+           this.$router.push("/choice")
+           
+        },
+        async getAllItems(){
+            const response = await fetch("auth/items", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            });
+            const json = await response.json()
+            this.$store.commit("choice/ItemArrayEdit", json.getItem);
+        } 
+    },
+    mounted() {
+        this.getAllItems()
+    }
 }
 </script>
 
